@@ -1,0 +1,593 @@
+# JavaScript Array Map Method (`map()`)
+
+## 1. Introduction
+
+The JavaScript `map()` method is a built-in array method used to create a new array by applying a callback function to every element of an existing array.
+
+It does not modify the original array. Instead, it returns a new array containing the results of executing the callback function on each element.
+
+The `map()` method is commonly used for:
+
+- Transforming array elements.
+- Performing calculations on array values.
+- Extracting specific information from objects.
+- Converting data from one format to another.
+- Rendering lists of elements in React applications.
+
+## 2. Understanding the `map()` Method
+
+Before examining the code, let's understand its general syntax.
+
+```javascript
+array.map(callbackFunction);
+```
+
+The `map()` method accepts a callback function that determines what should happen to each element in the array.
+
+The callback function is automatically executed once for every element.
+
+### General Syntax
+
+```javascript
+const newArray = originalArray.map((item) => {
+    return item;
+});
+```
+
+**Explanation:**
+
+- `originalArray`: The existing array being iterated over.
+- `map()`: The built-in JavaScript array method.
+- `item`: Represents the current element being processed.
+- `return`: Specifies the value to place in the new array.
+- `newArray`: Stores the resulting array.
+
+The number of elements in the returned array is normally the same as the number of elements in the original array.
+
+## 3. Understanding the First Code Example
+
+Let's examine the first example.
+
+```javascript
+const myArray = [2, 4, 6, 8];
+
+function myCustomMapOperationCallback(itemFromArray) {
+    return itemFromArray * 2;
+}
+
+const newArray = myArray.map(myCustomMapOperationCallback);
+
+console.log(newArray);
+```
+
+### Step 1: Create an Array
+
+```javascript
+const myArray = [2, 4, 6, 8];
+```
+
+Here, we create an array named `myArray` containing four numbers:
+
+- `2`
+- `4`
+- `6`
+- `8`
+
+This is the original array that we want to transform.
+
+### Step 2: Create a Callback Function
+
+```javascript
+function myCustomMapOperationCallback(itemFromArray) {
+    return itemFromArray * 2;
+}
+```
+
+This is a custom callback function.
+
+It accepts one parameter called `itemFromArray`.
+
+The parameter represents the current element being processed by the `map()` method.
+
+The function multiplies each received value by `2` and returns the result.
+
+For example:
+
+```javascript
+myCustomMapOperationCallback(2); // 4
+myCustomMapOperationCallback(4); // 8
+myCustomMapOperationCallback(6); // 12
+myCustomMapOperationCallback(8); // 16
+```
+
+### Step 3: Use the `map()` Method
+
+```javascript
+const newArray = myArray.map(myCustomMapOperationCallback);
+```
+
+This is where the actual transformation happens.
+
+We call the `map()` method on `myArray` and pass `myCustomMapOperationCallback` as its argument.
+
+The `map()` method automatically:
+
+1. Takes the first element of `myArray`.
+2. Passes that element to the callback function.
+3. Receives the returned value.
+4. Repeats the process for every remaining element.
+5. Creates and returns a new array containing all the returned values.
+
+The callback function does not need to be called manually for each element. The `map()` method handles that process.
+
+### Step 4: Display the Result
+
+```javascript
+console.log(newArray);
+```
+
+This prints the newly created array to the console.
+
+**Expected Output:**
+
+```javascript
+[4, 8, 12, 16]
+```
+
+The original array remains unchanged:
+
+```javascript
+console.log(myArray);
+
+// [2, 4, 6, 8]
+```
+
+## 4. Understanding the Second Code Example
+
+Now let's examine the second example.
+
+```javascript
+const strArray = ["Hello", "world", "my", "name", "is", "Zach"];
+
+console.log(
+    strArray.map(itemFromArray => itemFromArray[0])
+);
+```
+
+This example demonstrates how to use the `map()` method with an arrow function to extract the first character of every string in an array.
+
+### Step 1: Create an Array of Strings
+
+```javascript
+const strArray = ["Hello", "world", "my", "name", "is", "Zach"];
+```
+
+We create an array containing six strings.
+
+Each string represents an individual element in the array.
+
+### Step 2: Apply the `map()` Method
+
+```javascript
+strArray.map(itemFromArray => itemFromArray[0]);
+```
+
+Here, we pass an arrow function directly into the `map()` method.
+
+Let's break it down:
+
+**The arrow function:**
+
+```javascript
+itemFromArray => itemFromArray[0]
+```
+
+- `itemFromArray` represents the current string.
+- `=>` is the arrow function operator.
+- `itemFromArray[0]` accesses the first character of the current string.
+
+### Understanding String Indexing
+
+JavaScript uses zero-based indexing when accessing characters in a string.
+
+For example:
+
+```javascript
+const word = "Hello";
+
+console.log(word[0]); // H
+console.log(word[1]); // e
+console.log(word[2]); // l
+console.log(word[3]); // l
+console.log(word[4]); // o
+```
+
+The first character is always at index `0`, not index `1`.
+
+### Step 3: Understand the Transformation
+
+The `map()` method processes each string individually.
+
+| Original Element | First Character |
+|---|---|
+| `"Hello"` | `"H"` |
+| `"world"` | `"w"` |
+| `"my"` | `"m"` |
+| `"name"` | `"n"` |
+| `"is"` | `"i"` |
+| `"Zach"` | `"Z"` |
+
+### Step 4: Display the Result
+
+**Expected Output:**
+
+```javascript
+["H", "w", "m", "n", "i", "Z"]
+```
+
+The `map()` method creates a new array containing only the first character of each original string.
+
+## 5. Understanding Different Ways to Write the Callback
+
+The same callback operation can be written in different ways.
+
+### Approach 1: Named Callback Function
+
+```javascript
+function doubleNumber(itemFromArray) {
+    return itemFromArray * 2;
+}
+
+const numbers = [2, 4, 6, 8];
+
+const result = numbers.map(doubleNumber);
+
+console.log(result);
+```
+
+### Approach 2: Anonymous Function
+
+```javascript
+const numbers = [2, 4, 6, 8];
+
+const result = numbers.map(function (itemFromArray) {
+    return itemFromArray * 2;
+});
+
+console.log(result);
+```
+
+### Approach 3: Arrow Function with Explicit Return
+
+```javascript
+const numbers = [2, 4, 6, 8];
+
+const result = numbers.map((itemFromArray) => {
+    return itemFromArray * 2;
+});
+
+console.log(result);
+```
+
+### Approach 4: Arrow Function with Implicit Return
+
+```javascript
+const numbers = [2, 4, 6, 8];
+
+const result = numbers.map(itemFromArray => itemFromArray * 2);
+
+console.log(result);
+```
+
+All four approaches produce the same result:
+
+```javascript
+[4, 8, 12, 16]
+```
+
+The difference is the syntax used to define the callback function.
+
+## 6. The Three Parameters of the `map()` Callback
+
+An important concept is that the callback function passed to `map()` can receive up to three arguments.
+
+```javascript
+array.map((currentValue, index, array) => {
+    // Transformation logic
+});
+```
+
+These parameters are:
+
+| Parameter | Description |
+|---|---|
+| `currentValue` | The current element being processed. |
+| `index` | The index of the current element. |
+| `array` | The original array on which `map()` was called. |
+
+### Example
+
+```javascript
+const fruits = ["Apple", "Mango", "Orange"];
+
+const result = fruits.map((fruit, index, array) => {
+    console.log("Fruit:", fruit);
+    console.log("Index:", index);
+    console.log("Original Array:", array);
+
+    return fruit.toUpperCase();
+});
+
+console.log(result);
+```
+
+**Expected Result:**
+
+```javascript
+["APPLE", "MANGO", "ORANGE"]
+```
+
+You do not have to use all three parameters. You can use only the parameters required for your operation.
+
+## 7. Important Characteristics of `map()`
+
+Understanding these characteristics will help you use the method correctly.
+
+### A. `map()` Returns a New Array
+
+The original array is not directly modified by the `map()` method.
+
+```javascript
+const numbers = [1, 2, 3];
+
+const doubledNumbers = numbers.map(number => number * 2);
+
+console.log(numbers);
+console.log(doubledNumbers);
+```
+
+**Output:**
+
+```javascript
+[1, 2, 3]
+[2, 4, 6]
+```
+
+### B. `map()` Executes the Callback for Every Element
+
+The callback function is executed once for each element in the array.
+
+```javascript
+const numbers = [10, 20, 30];
+
+numbers.map(number => {
+    console.log(number);
+    return number;
+});
+```
+
+**Output:**
+
+```javascript
+10
+20
+30
+```
+
+### C. `map()` Should Be Used When You Want to Transform Data
+
+If your goal is to create a new array containing transformed values, `map()` is appropriate.
+
+If your goal is simply to execute an operation without creating a new array, consider using `forEach()` instead.
+
+### D. Always Return a Value When You Want Meaningful Results
+
+The callback's returned value becomes an element in the new array.
+
+For example:
+
+```javascript
+const numbers = [1, 2, 3];
+
+const result = numbers.map(number => {
+    number * 2;
+});
+
+console.log(result);
+```
+
+**Output:**
+
+```javascript
+[undefined, undefined, undefined]
+```
+
+Why?
+
+Because the callback uses curly braces but does not include a `return` statement.
+
+The correct implementation is:
+
+```javascript
+const result = numbers.map(number => {
+    return number * 2;
+});
+```
+
+Alternatively, use an implicit return:
+
+```javascript
+const result = numbers.map(number => number * 2);
+```
+
+## 8. `map()` vs `forEach()`
+
+Both methods iterate over array elements, but they serve different purposes.
+
+| Feature | `map()` | `forEach()` |
+|---|---|---|
+| Iterates through elements | Yes | Yes |
+| Executes a callback | Yes | Yes |
+| Returns a new array | Yes | No |
+| Intended for data transformation | Yes | No |
+| Can be chained with other array methods | Yes | Not directly through its return value |
+
+### Example Using `map()`
+
+```javascript
+const numbers = [1, 2, 3];
+
+const doubled = numbers.map(number => number * 2);
+
+console.log(doubled);
+```
+
+Output:
+
+```javascript
+[2, 4, 6]
+```
+
+### Example Using `forEach()`
+
+```javascript
+const numbers = [1, 2, 3];
+
+numbers.forEach(number => {
+    console.log(number * 2);
+});
+```
+
+Output:
+
+```javascript
+2
+4
+6
+```
+
+The key difference is that `map()` returns a new array, while `forEach()` returns `undefined`.
+
+## 9. Practical Exercises
+
+Use the following exercises to test your understanding.
+
+### Exercise 1: Multiply Every Number by Five
+
+Given:
+
+```javascript
+const numbers = [2, 4, 6, 8, 10];
+```
+
+Use `map()` to multiply every element by `5`.
+
+**Expected Output:**
+
+```javascript
+[10, 20, 30, 40, 50]
+```
+
+### Exercise 2: Extract the First Character
+
+Given:
+
+```javascript
+const names = ["David", "Sarah", "John", "Mary"];
+```
+
+Use `map()` and an arrow function to extract the first character of each name.
+
+**Expected Output:**
+
+```javascript
+["D", "S", "J", "M"]
+```
+
+### Exercise 3: Convert Strings to Uppercase
+
+Given:
+
+```javascript
+const words = ["javascript", "react", "node"];
+```
+
+Use `map()` to convert every string to uppercase.
+
+**Expected Output:**
+
+```javascript
+["JAVASCRIPT", "REACT", "NODE"]
+```
+
+### Exercise 4: Add Ten to Every Number
+
+Given:
+
+```javascript
+const values = [5, 10, 15, 20];
+```
+
+Use `map()` to add `10` to every element.
+
+**Expected Output:**
+
+```javascript
+[15, 20, 25, 30]
+```
+
+### Exercise 5: Work with the Index
+
+Given:
+
+```javascript
+const subjects = ["HTML", "CSS", "JavaScript"];
+```
+
+Use `map()` to return a new array containing each subject and its index.
+
+**Expected Output:**
+
+```javascript
+[
+    "0: HTML",
+    "1: CSS",
+    "2: JavaScript"
+]
+```
+
+## 10. Conclusion
+
+The JavaScript `map()` method is a powerful array method that allows developers to transform existing arrays into new arrays without directly modifying the original data.
+
+In this lesson, we explored:
+
+1. How the `map()` method works.
+2. How to pass named callback functions into `map()`.
+3. How to use anonymous functions and arrow functions.
+4. How to transform numerical array elements.
+5. How to extract characters from strings.
+6. How to use the three callback parameters.
+7. The differences between `map()` and `forEach()`.
+8. Common mistakes when using `map()`.
+
+**Key Takeaway:**
+
+The `map()` method takes a callback function, executes it for every element in an array, and returns a new array containing the values returned by that callback.
+
+Understanding `map()` provides an important foundation for working with JavaScript arrays, manipulating application data, and building dynamic user interfaces with React.
+
+## 11. Official Learning Resources
+
+- [MDN: Array.prototype.map()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map)
+- [MDN: JavaScript Arrays](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)
+- [MDN: Arrow Functions](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions)
+- [JavaScript.info: Array Methods](https://javascript.info/array-methods)
+
+---
+
+**Documentation Topic:** JavaScript Fundamentals  
+**Lesson:** Array `map()` Method  
+**Level:** Beginner  
+**Language:** JavaScript  
+**Project:** HTML, CSS & JavaScript Bedrock Bootcamp
